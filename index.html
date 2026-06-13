@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RewardsHub Pro | Elite Access</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
+body{
+    font-family:'Inter',sans-serif;
+    background:
+    radial-gradient(circle at top,#1e1b4b,transparent 40%),
+    radial-gradient(circle at bottom,#0f172a,transparent 50%),
+    #050816;
+    color:white;
+}
+
+/* HEADER */
+header{
+    background:rgba(255,255,255,0.03);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+/* HERO */
+.hero-title{
+    font-size:clamp(2.5rem,5vw,4rem);
+    font-weight:800;
+    text-align:center;
+    margin-top:40px;
+    background:linear-gradient(90deg,#60a5fa,#a78bfa,#22d3ee);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero-sub{
+    text-align:center;
+    color:#94a3b8;
+    max-width:700px;
+    margin:10px auto 0;
+}
+
+/* INPUT */
+input,select{
+    background:#0f172a;
+    border:1px solid #1f2937;
+    color:white;
+    outline:none;
+}
+
+/* CARD */
+.card{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;
+    overflow:hidden;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 20px 50px rgba(0,0,0,0.5);
+}
+
+.card img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+}
+
+/* BUTTON */
+.btn{
+    display:block;
+    text-align:center;
+    margin-top:10px;
+    padding:10px;
+    border-radius:12px;
+    font-weight:700;
+    background:linear-gradient(90deg,#4f46e5,#7c3aed);
+}
+
+.btn:hover{
+    opacity:0.9;
+}
+</style>
+
+</head>
+
+<body>
+
+<header class="p-4 flex justify-between items-center max-w-6xl mx-auto">
+    <h1 class="text-xl font-bold text-indigo-400">RewardsHub Pro</h1>
+    <nav class="hidden md:flex gap-6 text-slate-400 text-sm">
+        <a href="#">Home</a>
+        <a href="#offers">Offers</a>
+        <a href="#">About</a>
+    </nav>
+</header>
+
+<h1 class="hero-title">Elite Rewards Access</h1>
+<p class="hero-sub">Claim premium gift cards, cashback & verified job opportunities instantly</p>
+
+<!-- SEARCH -->
+<div class="max-w-4xl mx-auto flex gap-4 mt-10 px-4">
+    <input id="searchInput" class="w-full p-3 rounded-xl" placeholder="Search offers...">
+
+    <select id="filter" class="p-3 rounded-xl">
+        <option value="all">All</option>
+        <option value="Amazon">Amazon</option>
+        <option value="Walmart">Walmart</option>
+        <option value="Cash">Cash</option>
+        <option value="Job">Job</option>
+    </select>
+</div>
+
+<!-- OFFERS -->
+<main id="offers" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6"></main>
+
+<script>
+
+/* ===== OFFERS (NO DUPLICATE + CLEAN) ===== */
+
+const offers = [
+{
+id:6091,
+name:"Amazon $750",
+type:"Amazon",
+image:"https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/CR3HXR4/?sub1=Moloy"
+},
+{
+id:6090,
+name:"Amazon $1000",
+type:"Amazon",
+image:"https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/CR2532H/?sub1=Moloy"
+},
+{
+id:6089,
+name:"Walmart $750",
+type:"Walmart",
+image:"https://images.unsplash.com/photo-1607083206968-13611e3d76db?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/CQZQ69W/?sub1=Moloy"
+},
+{
+id:6088,
+name:"Walmart $1000",
+type:"Walmart",
+image:"https://images.unsplash.com/photo-1607082350899-7e105aa886ae?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/CQXC9K9/?sub1=Moloy"
+},
+{
+id:6087,
+name:"Cash App $750",
+type:"Cash",
+image:"https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/CQTZDSN/?sub1=Moloy"
+},
+{
+id:6086,
+name:"Cash App $1000",
+type:"Cash",
+image:"https://images.unsplash.com/photo-1556742044-3c52d6e88c62?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/CQSKJ43/?sub1=Moloy"
+},
+{
+id:6085,
+name:"Waste Management",
+type:"Job",
+image:"https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/CQD3KGL/?sub1=Moloy"
+},
+
+{
+id:6072,
+name:"Dollar Tree",
+type:"Job",
+image:"https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/CQ555RK/?sub1=Moloy"
+},
+{
+id:6071,
+name:"Kelly Services",
+type:"Job",
+image:"https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/CQ3Q92Z/?sub1=Moloy"
+},
+{
+id:6070,
+name:"Waste Management (Top Converting)",
+type:"Job",
+image:"https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/CQ2CDBC/?sub1=Moloy"
+},
+{
+id:6069,
+name:"Netflix",
+type:"Entertainment",
+image:"https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/BDQ32TR/?sub1=Moloy"
+},
+{
+id:5958,
+name:"Prime Reward Spot - $750 Aldi",
+type:"Retail",
+image:"https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/CJGSFWC/?sub1=Moloy"
+},
+{
+id:5957,
+name:"Prime Reward Spot - $750 Cash App",
+type:"Cash",
+image:"https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/CJFFK5Q/?sub1=Moloy"
+},
+{
+id:5956,
+name:"Prime Reward Spot - $750 Walmart",
+type:"Walmart",
+image:"https://images.unsplash.com/photo-1481437156560-3205f6a55735?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/CJD2NF5/?sub1=Moloy"
+},
+{
+id:5955,
+name:"TrendnDaily - $500 Aldi Gift Card",
+type:"Retail",
+image:"https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/CJBMRNJ/?sub1=Moloy"
+},
+{
+id:5954,
+name:"TrendnDaily - $1000 Cash App Card",
+type:"Cash",
+image:"https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/CJ98WXX/?sub1=Moloy"
+},
+{
+id:5953,
+name:"TrendnDaily - $500 Walmart Gift Card",
+type:"Walmart",
+image:"https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/CJ7W27B/?sub1=Moloy"
+},
+{
+id:5952,
+name:"Prime Reward Spot - $750 Cash Pitch",
+type:"Cash",
+image:"https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/CJ6H5GP/?sub1=Moloy"
+},
+{
+id:6069,
+name:"Netflix",
+type:"Entertainment",
+image:"https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/BDQ32TR/?sub1=Moloy"
+},
+{
+id:6073,
+name:"Coca Cola Jobs",
+type:"Job",
+image:"https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80",
+link:"https://www.aplfb8trk.com/3M8FBQ34/CQ6J2J6/?sub1=Moloy"
+}
+];
+
+const container = document.getElementById("offers");
+const searchInput = document.getElementById("searchInput");
+const filter = document.getElementById("filter");
+
+/* ===== RENDER ===== */
+function render(data){
+container.innerHTML = data.map(o=>`
+<div class="card">
+<img src="${o.image}">
+<div class="p-4">
+<span class="text-xs text-indigo-400">${o.type}</span>
+<h3 class="font-bold mt-1">${o.name}</h3>
+<a href="${o.link}" class="btn">Claim Now</a>
+</div>
+</div>
+`).join("");
+}
+
+/* ===== FILTER ===== */
+function update(){
+const val = searchInput.value.toLowerCase();
+const cat = filter.value;
+
+render(offers.filter(o=>
+o.name.toLowerCase().includes(val) &&
+(cat==="all" || o.type===cat)
+));
+}
+
+searchInput.addEventListener("input",update);
+filter.addEventListener("change",update);
+
+render(offers);
+
+</script>
+	<footer class="max-w-6xl mx-auto mt-20 py-10 border-t border-slate-800 text-center">
+    <div class="flex flex-col items-center">
+        <h3 class="text-xl font-bold text-white mb-2">RewardsHub Pro</h3>
+        <p class="text-slate-500 text-sm mb-6 max-w-sm">
+            Providing premium rewards and opportunities since 2026. Your gateway to exclusive offers.
+        </p>
+        <div class="flex gap-6 text-slate-400 text-sm mb-8">
+            <a href="#" class="hover:text-indigo-400 transition">Privacy Policy</a>
+            <a href="#" class="hover:text-indigo-400 transition">Terms of Service</a>
+            <a href="#" class="hover:text-indigo-400 transition">Contact Support</a>
+        </div>
+        <p class="text-slate-600 text-xs">© 2026 RewardsHub Pro. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>
